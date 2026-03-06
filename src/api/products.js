@@ -16,14 +16,14 @@ export const addProductApi = (payload) =>
 export const updateProductApi = (id, payload) =>
   client.put(`/api/products/${id}/`, payload);
 
-// delete (doc: GET /products/api/<id>)
+// delete
 export const deleteProductApi = (id) =>
-  client.get(`/products/api/${id}/`);
+  client.delete(`/api/products/${id}/`);
 
 // search
 export const searchProductsApi = (q) =>
-  client.get('/products/api/search/', { params: { q } });
+  client.get('/api/products/search/', { params: { q } });
 
 // categories
 export const getCategoriesApi = () =>
-  client.get('/products/api/categories/');
+  client.get('/api/categories/');

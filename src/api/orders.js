@@ -11,3 +11,6 @@ export const getOrderStatusApi = (id) =>
 
 export const updateOrderStatusApi = (id, status) =>
   client.patch(`/orders/api/orders/${id}/status/`, { status });
+
+export const initiatePaymentApi = (payload) =>
+  client.post('/api/payments/initiate/', payload);

@@ -15,6 +15,8 @@ import ProductList from '@/pages/shop/ProductList.jsx';
 import ProductDetail from '@/pages/shop/ProductDetail.jsx';
 
 import CartPage from '@/pages/cart/CartPage.jsx';
+import PaymentSuccess from '@/pages/cart/PaymentSuccess.jsx';
+import PaymentFail from '@/pages/cart/PaymentFail.jsx';
 import OrdersPage from '@/pages/orders/OrdersPage.jsx';
 
 import AdminDashboard from '@/pages/admin/AdminDashboard.jsx';
@@ -35,6 +37,9 @@ export default function AppRouter() {
       <Route path="/products/:id" element={<ProductDetail />} />
 
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/payment/success" element={<PaymentSuccess />} />
+      <Route path="/payment/fail" element={<PaymentFail />} />
+      <Route path="/payment/cancel" element={<PaymentFail />} />
       <Route
         path="/orders"
         element={

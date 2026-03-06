@@ -4,7 +4,7 @@ import EmptyState from '@/components/common/EmptyState.jsx';
 import Button from '@/components/ui/Button.jsx';
 import { useCart } from '@/context/CartContext.jsx';
 import { formatPrice } from '@/utils/format.js';
-import { buyNowApi } from '@/api/orders.js';
+import { initiatePaymentApi } from '@/api/orders.js';
 
 export default function CartPage() {
   const {
@@ -19,17 +19,21 @@ export default function CartPage() {
   const handleCheckout = async () => {
     if (!items.length) return;
     try {
-      await buyNowApi({
-        // backend onujai structure change korte paro
-        items: items.map((i) => ({
-          product_id: i.product?.id || i.product_id,
-          quantity: i.quantity,
-        })),
+      // Assuming 'buyNowApi' creates the order in DB if needed. 
+      // But we built initiates to handle amount straight up first for now.
+      const res = await initiatePaymentApi({
+        amount: totalPrice,
+        name: 'User', // Could pull from profile if needed
       });
-      alert('Order placed (demo). See orders page.');
+      
+      if (res.data?.gateway_url) {
+        window.location.href = res.data.gateway_url; // Redirect to SSLCommerz
+      } else {
+        alert('Failed to get gateway URL.');
+      }
     } catch (e) {
       console.error(e);
-      alert('Could not place order.');
+      alert('Could not initiate payment.');
     }
   };
 
