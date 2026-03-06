@@ -13,12 +13,19 @@ export const CartProvider = ({ children }) => {
   const [cartLoading, setCartLoading] = useState(false);
 
   const loadCart = async () => {
+    // Only attempt if we have a token (optional check), or just handle 401 gracefully
+    if (!localStorage.getItem('accessToken')) {
+      setItems([]);
+      return;
+    }
     setCartLoading(true);
     try {
       const res = await getCartItemsApi();
       setItems(res.data || []);
     } catch (e) {
-      console.error(e);
+      if (e.response?.status !== 401) {
+        console.error(e);
+      }
     } finally {
       setCartLoading(false);
     }
